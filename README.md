@@ -70,8 +70,10 @@ My Analysis & Findings
 -- data exploration
 -- 1 how many sales we have 
 select count(*) from retail_analysis_yt;
+
 -- 2 how many unique customer we have 
  select distinct(count(customer_id)) from retail_analysis_yt;
+ 
  -- 3 which are catogry present here
  select distinct category from retail_analysis_yt;
 
@@ -90,18 +92,23 @@ select count(*) from retail_analysis_yt;
   and quantiy > 2
   and DATE_FORMAT(sale_date, '%Y-%m') = '2022-10';
   
+  
   -- 3  calculate the total sales (total_sale) for each category.
   select category ,sum(total_sale) , count(*)as num_sales  from retail_analysis_yt
   group by category ;
+
   
   -- 4 find the average age of customers who purchased items from the 'Beauty' category.
 select category , avg(age) from retail_analysis_yt 
 where category ='beauty' ;
 
+
  -- 5 find all transactions where the total_sale is greater than 1000.
+ 
  select * from retail_analysis_yt where total_sale >= 1000 ;
   
   -- 6 find the total number of transactions (transaction_id) made by each gender in each category
+  
   select  gender ,category,  count(transactions_id) as total_transactions from retail_analysis_yt
   group by category , gender; 
   
@@ -114,16 +121,19 @@ rank() over(partition by extract(year from sale_date) order by avg(total_sale)de
 group by years, months ;
 
 -- 8 find the top 5 customers based on the highest total sales 
+
 select * from retail_analysis_yt;
 select customer_id , total_sale from retail_analysis_yt
 order by total_sale desc
 limit 5 ;
 
 -- 9 find the number of unique customers who purchased items from each category.
+
 select category , count(distinct(customer_id)) as unique_cs from retail_analysis_yt 
 group by category ;
  
  -- 10 create each shift and number of orders (Example Morning <=12, Afternoon Between 12 & 17, Evening >17)
+ 
  WITH hourly_sales as (
  select *,
  case 
